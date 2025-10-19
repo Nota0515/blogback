@@ -1,10 +1,11 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
 const pool = new Pool({
-    host: process.env.HOST,
-    user: process.env.DATABASE_USER,
-    database: process.env.DATABASE,
-    password: process.env.DATABASE_PASSWORD,
+    host: `${process.env.HOST}`,
+    user: `${process.env.DATABASE_USER}`,
+    database: `${process.env.DATABASE}`,
+    password: `${process.env.DATABASE_PASSWORD}`,
     max: 20,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
