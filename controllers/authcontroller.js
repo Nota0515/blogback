@@ -10,12 +10,12 @@ const login = async(req , res) => {
             [email]
         );
 
-        if (result.rows.length === 0) return res.status(401).json({error : "Invalid credential"});
+        if (result.rows.length === 0) return res.status(401).json({message : "Invalid credential"});
         const admin = result.rows[0];
         //compare the password
         const validpassword = await bycrpt.compare(password , admin.password);
         if (!validpassword){
-            return res.status(401).json({error : "Invalid credential"});
+            return res.status(401).json({message : "Invalid credential"});
         };
 
         const token = jwt.sign({
