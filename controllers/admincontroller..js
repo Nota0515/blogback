@@ -1,5 +1,4 @@
 const pool = require('../config/db');
-const bycrpt = require('bcrypt');
 
 
 async function slug_genrator(title, pool) {
@@ -52,7 +51,7 @@ exports.postblog = async (req, res) => {
         };
     } catch (error) {
         console.log(`Error while posting blog ${error}`);
-        
+
         if (error.code === '23505') { // Unique violation
             return res.status(409).json({
                 success: false,
@@ -66,6 +65,40 @@ exports.postblog = async (req, res) => {
     }
 };
 
-exports.updateblog = async (req, res) => { };
+exports.updateblog = async (req, res) => { 
+    try {
+        
+    } catch (error) {
+        
+    }
+ };
 
-exports.deleteblog = async (req, res) => { };
+exports.deleteblog = async (req, res) => { 
+    try {
+        const { slug } = req.params ;
+        if (!slug) return res.status(400).json({
+            message:'Slug required',
+            success: false
+        });
+        const result = await pool.query('DELETE FROM blogs WHERE slug = $1 RETURNING *' , [slug]);
+
+        if (result.rows.length > 0 ){
+            return res.status(200).json({
+                message : "blog post deleted sucesfully",
+                success: true
+            })
+        }else{
+            res.status(404).json({
+                message: 'blog post not found',
+                success: false
+            })
+        }
+
+    } catch (error) {
+        console.log(`Error while deleting : ${error}`);
+        res.status(500).json({
+            message:'Internal server error',
+            success: false
+        })
+    }
+ };
