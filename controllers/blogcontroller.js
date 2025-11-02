@@ -44,7 +44,7 @@ exports.likedblog = async (req, res) => {
 
         if (liked.rows.length === 0){
             await client.query('ROLLBACK');
-            return res.status(400).json({
+            return res.status(409).json({
                 message : 'you have already liked my blog',
                 success : false 
             })
