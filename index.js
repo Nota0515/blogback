@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true }));
 
 
 //intialixing routes in application level
-//app.use("/admin" , adminroutes);
+app.use("/admin" , adminroutes);
 app.use('/api/v1/auth' , authroutes);
 app.use('/api/v1/blog', blogroutes);
 
