@@ -2,15 +2,16 @@ const pool = require('../config/db');
 
 
 async function slug_genrator(title, pool) {
+    const stopWords = ['a','an','the','and','or','but','if','then','else','when','at','by','for','in','of','on','to','up','from','with','as','is','it','that','this','your','my','our','their','be','are','was','were'];
     const baseSlug = title
-        .toString()
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^\w\s]/g , '') //this will remove the punctuations
         .toLowerCase()
-        .trim()
-        .replace([/\s+/g, '-'])
-        .replace(/[^\w-]+/g, '')
-        .replace(/--+/g, '-')
+        .replace(/[u0300-\u036f]/g , '')
+        .split(/\s+/)
+        .filter(word => !stopWords.includes(word))
+        .slice(0,5)
+        .join('-');
 
     let slug = baseSlug;
     let counter = 1;
