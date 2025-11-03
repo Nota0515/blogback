@@ -34,17 +34,19 @@ exports.postblog = async (req, res) => {
                 success: false
             })
         };
+        console.log(title);
+        console.log(content);
 
         const uniqueSlug = await slug_genrator(title, pool);
-        const result = await pool.query('INSERT INTO blog (title , content , slug) VALUES( $1 , $2 , $3) RETURNING *', [title, content, uniqueSlug]);
+        const result = await pool.query('INSERT INTO blogs (title , content , slug) VALUES( $1 , $2 , $3) RETURNING *', [title, content, uniqueSlug]);
 
-        if (result.rows.length && result.rows > 0) {
-            res.status(201).json({
+        if (result.rows && result.rows.length > 0) {
+            return res.status(201).json({
                 message: "Blog posted sucessfully",
                 success: true
             })
         } else {
-            res.status(500).json({
+            return res.status(500).json({
                 message: "Error while posting blog",
                 success: false
             });
@@ -58,7 +60,7 @@ exports.postblog = async (req, res) => {
                 message: 'A blog post with this title already exists'
             });
         }
-        res.status(500).json({
+       return res.status(500).json({
             message: "Internal server error",
             success: false
         })
