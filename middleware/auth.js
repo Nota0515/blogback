@@ -6,7 +6,7 @@ exports.auth = async (req , res , next ) => {
     try {
         const token = req.headers.authorization?.split(' ')[1];
         console.log(token);
-        if (!token) return res.status(404).json({ message: "NOT FOUND" });
+        if (!token) return res.status(401).json({ message: "Authentication Required , TOKEN NOT FOUND" });
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.admin = await pool.query("SELECT * FROM admin WHERE id = $1", [decoded.adminId]);
 
