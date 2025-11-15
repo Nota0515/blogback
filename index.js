@@ -2,11 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 require('dotenv').config();
+const path = require('path');
 
 //routes imports 
 const adminroutes = require('./routes/admin');
 const authroutes = require('./routes/auth');
 const blogroutes = require('./routes/blog');
+
+//views routes (SSR) 
+const viewRoutes = require('./routes/views');
 
 //setting up express
 const app = express();
@@ -17,12 +21,20 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true }));
 
+//static files 
+app.use(express.static(path.join(__dirname , 'public')));
 
-//initialixing the database here just like mongodb connecttoDB
+app.set("view engine" , "ejs");
+app.set('views' , path.join(__dirname , 'views'));
+
+//ssr routes;
+app.use('/' , viewRoutes);
+
+//initialixing the database here just like mongodb connecttoDB no need for PostgresQL
 
 
 
-//intialixing routes in application level
+//intialixing api routes in application level
 app.use("/admin" , adminroutes);
 app.use('/api/v1/auth' , authroutes);
 app.use('/api/v1/blog', blogroutes);
