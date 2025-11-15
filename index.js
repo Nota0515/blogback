@@ -41,7 +41,7 @@ app.use('/api/v1/blog', blogroutes);
 
 
 app.get('/helloworld' , (req , res)=>{
-    res.end("ooo chal geya bhai 😍 ")
+    res.end("ooo chal geya bhai")
 })
 
 
