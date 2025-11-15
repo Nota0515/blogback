@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog — Akhilesh</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-gray-100 text-black">
+
+    <div class="max-w-4xl mx-auto py-10 px-4">
+
+        <h1 class="text-4xl font-semibold mb-8">All Blog Posts</h1>
+
+        <div class="space-y-6">
+        <% blogdata.forEach(blog => { %>
+            <a href="/blog/<%= blog.slug %>" class="block p-5 bg-white shadow rounded-xl hover:shadow-md transition">
+                <h2 class="text-2xl font-medium"><%= blog.title %></h2>
+                <p class="text-black/70 mt-2 text-sm"><%= blog.description %></p>
+            </a>
+        <% }) %>
+        </div>
+
+    </div>
+
+</body>
+</html>
