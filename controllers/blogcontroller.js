@@ -25,7 +25,7 @@ exports.sblog = async (req, res) => {
         res.status(500).json({ message: "Internet server error " });
         console.error('this is the issue', error);
     }
-}
+};
 
 exports.likedblog = async (req, res) => {
     const client = await pool.connect();
@@ -71,4 +71,30 @@ exports.likedblog = async (req, res) => {
     } finally {
         client.release(); //pran jai per vachan na jai I mean kabhi bhulio matt release kerna when doing tranactions 
     }
-}
+};
+
+//data helpers for SSR 
+exports.blogs = async()=>{
+    try {
+        const allblogs = await pool.query('SELECT * FROM blogs ORDER BY created_at LIMIT 20 OFFSET 0');
+        return allblogs.rows; 
+    } catch (error) {
+        console.error("error in helper ftn ", error);
+        console.log(error);
+        throw error ;
+    };
+};
+
+exports.thisblog = async (slug) =>{
+    try {
+        const blog = await pool.query('SELECT * FROM blogs WHERE slug = $1', [slug]);
+        if (blog.rows.length === 0){
+            return null ;
+        }
+        return blog.rows[0];
+    } catch (error) {
+        console.error(error);
+        console.log("Error in the thisblog helper ftn",error);
+        throw error;
+    };
+};
