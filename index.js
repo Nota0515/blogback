@@ -44,6 +44,12 @@ app.get('/helloworld' , (req , res)=>{
     res.end("ooo chal geya bhai")
 })
 
+// 404 route (keep this at the very bottom)
+app.use((req, res) => {
+  res.status(404).render('404');
+});
+
+
 
 const PORT = process.env.PORT || 5000 ;
 
