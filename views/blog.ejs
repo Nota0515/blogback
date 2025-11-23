@@ -1,25 +1,90 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Blog — Akhilesh</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="bg-gray-100 text-black">
 
-    <div class="max-w-4xl mx-auto py-10 px-4">
-
-        <h1 class="text-4xl font-semibold mb-8">All Blog Posts</h1>
-
-        <div class="space-y-6">
-        <% blogdata.forEach(blog => { %>
-            <a href="/blog/<%= blog.slug %>" class="block p-5 bg-white shadow rounded-xl hover:shadow-md transition">
-                <h2 class="text-2xl font-medium"><%= blog.title %></h2>
-                <p class="text-black/70 mt-2 text-sm"><%= blog.description %></p>
+<body class="w-screen min-h-screen bg-[linear-gradient(180deg,rgba(26,26,26,1)_0%,rgba(0,0,0,1)_100%)]">
+    <header
+        class="border-b border-neutral-800/80 backdrop-blur">
+        <div class="max-w-4xl mx-auto flex items-center justify-between gap-4 px-6 py-4">
+            <!-- Brand -->
+            <a href="/" class="flex items-center gap-2">
+                <div class="flex py-2 font-geist">
+                    <span class="text-base tracking-tight text-neutral-50">
+                        Akhilesh Kashyap
+                    </span>
+                </div>
             </a>
-        <% }) %>
-        </div>
 
-    </div>
+            <!-- Simple Nav -->
+            <nav class="flex items-center py-2 gap-6 text-sm">
+                <span class="relative inline-flex items-center font-geist text-neutral-100">
+                    Bookshelf
+                    <span class="absolute -bottom-1 inset-x-0 h-0.5 rounded-full bg-red-500"></span>
+                </span>
+            </nav>
+        </div>
+    </header>
+    <main class="flex-1">
+        <section class="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+            <!-- Title Row -->
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-geist tracking-tight text-neutral-50">
+                        Blog <span class="text-sm font-geist font-medium text-neutral-200">( <%= blogdata.length %> )</span>
+                    </h1>
+                    <p class="mt-3 text-base text-neutral-400 font-geist max-w-2xl">
+                        I write about my thoughts here — about my learning, experiences, and the things that inspire me.
+                    </p>
+                </div>
+
+                <!-- Meta / Count -->
+                <!--<div class="flex items-center gap-3">
+                    <span
+                        class="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-950 px-3 py-1.5">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400/90 shadow-sm shadow-emerald-500/60"></span>
+                        <span class="text-sm font-geist font-medium text-neutral-200">
+                            <%= blogdata.length %> posts
+                        </span>
+                    </span>
+                </div>-->
+            </div>
+
+            <!-- Blog List -->
+            <div class="space-y-3">
+                <div class="flex pl-1 items-center justify-between mb-1">
+                    <span class="text-sm font-geist text-neutral-400">
+                        All thoughts ...
+                    </span>
+                </div>
+
+                <% blogdata.forEach(blog=> { %>
+                    <a href="/blog/<%= blog.slug %>"
+                        class="group w-full rounded-lg border border-neutral-800 bg-[linear-gradient(180deg,rgba(26,26,26,1)_0%,rgba(13,13,13,1)_100%)] hover:bg-neutral-900/80 hover:border-neutral-700 transition-colors text-left block">
+                        <div class="flex items-center justify-between gap-3 px-3 sm:px-4 py-3">
+                            <span class="text-base font-geist text-neutral-50 truncate">
+                                <%= blog.title %>
+                            </span>
+                            <span
+                                class="shrink-0 flex items-center text-neutral-500 group-hover:text-neutral-300 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M7 17L17 7" />
+                                    <path d="M7 7h10v10" />
+                                </svg>
+                            </span>
+                        </div>
+                    </a>
+                    <% }) %>
+            </div>
+        </section>
+    </main>
+
 
 </body>
+
 </html>
