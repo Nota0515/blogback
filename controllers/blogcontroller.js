@@ -76,7 +76,7 @@ exports.likedblog = async (req, res) => {
 //data helpers for SSR 
 exports.blogs = async()=>{
     try {
-        const allblogs = await pool.query('SELECT * FROM blogs ORDER BY created_at LIMIT 20 OFFSET 0');
+        const allblogs = await pool.query('SELECT * FROM blogs ORDER BY created_at DESC');
         return allblogs.rows; 
     } catch (error) {
         console.error("error in helper ftn ", error);
