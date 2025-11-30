@@ -9,5 +9,5 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 const resumeFtn = () => {
-  window.location.href = "https://drive.google.com/file/d/1Ueu3HNhHB5nY4M9GOLg2yz5F2Hh_bE1m/view?usp=sharing";
+  window.location.href = "https://drive.google.com/file/d/1rSIp33_aiCkCnbWaymkcxjAPcbzzeOgg/view?usp=sharing";
 }
