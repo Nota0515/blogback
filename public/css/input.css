@@ -35,3 +35,35 @@
 }
 
 
+#like-container {
+  position: relative;
+}
+
+.like-burst {
+  position: absolute;
+  top: -1.77rem;
+  left: -0.37rem;
+  padding: 2px 6px;
+  border-radius: 0.375rem;
+  font-size: 0.7rem;
+  background: rgb(0, 19, 7);
+  border: 1px solid rgba(74, 222, 128, 0.7);
+  opacity: 0;
+  transform: translateY(4px) scale(0.9);
+  pointer-events: none;
+  animation: like-burst 0.9s ease-out forwards;
+}
+
+@keyframes like-burst {
+  0%   { opacity: 0; transform: translateY(4px)  scale(0.9); }
+  20%  { opacity: 1; transform: translateY(0px)  scale(1); }
+  100% { opacity: 0; transform: translateY(-8px) scale(0.9); }
+}
+
+#like-container[data-clicked] #like-icon {
+  transform: scale(1.15);
+  transition: transform 0.18s ease-out;
+}
+
+
+
