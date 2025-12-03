@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - Blogs</title>
+  <style>
+    :root {
+      --bg-main: #05060a;
+      --bg-panel: #11141b;
+      --bg-header: #181c25;
+      --border: #2b3240;
+      --accent: #33ff99;
+      --accent-soft: #1a3b32;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --danger: #ff4b5c;
+      --danger-soft: #3b1014;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2933 0, #05060a 55%);
+      color: var(--text-main);
+    }
+
+    .shell {
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px #000,
+        0 15px 40px rgba(0,0,0,0.75);
+    }
+
+    .shell-header {
+      background: linear-gradient(to bottom, #222831, #151923);
+      border-bottom: 1px solid #000;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .shell-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .led {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff, #60ffb6 40%, #0f172a 70%);
+      box-shadow: 0 0 8px rgba(52, 211, 153, .9);
+    }
+
+    .shell-header-right {
+      display: flex;
+      gap: 4px;
+    }
+
+    .shell-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border: 1px solid #020617;
+      background: linear-gradient(to bottom, #4b5563, #020617);
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, .15);
+    }
+
+    .shell-body {
+      background: repeating-linear-gradient(
+        180deg,
+        #05060a 0,
+        #05060a 20px,
+        #070812 20px,
+        #070812 40px
+      );
+      padding: 12px;
+      border-top: 1px solid #1f2937;
+      border-bottom: 1px solid #000;
+    }
+
+    .panel {
+      background: rgba(12,16,24,0.96);
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 0 1px rgba(15,23,42,.8);
+    }
+
+    .panel-header {
+      background: linear-gradient(to bottom, #111827, #020617);
+      border-bottom: 1px solid #000;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+
+    .panel-header-title {
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      border: 1px solid #020617;
+      background: linear-gradient(to bottom, #1f2937, #020617);
+      color: var(--text-main);
+      padding: 4px 10px;
+      font-size: 12px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to bottom, #334155, #020617);
+    }
+
+    .btn-accent {
+      border-color: #22c55e;
+      background: linear-gradient(to bottom, #22c55e, #065f46);
+      color: #020617;
+      box-shadow: 0 0 12px rgba(34, 197, 94, .5);
+    }
+
+    .btn-accent:hover {
+      background: linear-gradient(to bottom, #4ade80, #047857);
+    }
+
+    .btn-danger {
+      border-color: #7f1d1d;
+      background: linear-gradient(to bottom, #ef4444, #7f1d1d);
+      color: #fee2e2;
+    }
+
+    .btn-small {
+      font-size: 11px;
+      padding: 3px 7px;
+    }
+
+    .panel-content {
+      padding: 10px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 10px;
+    }
+
+    /* table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    thead {
+      background: linear-gradient(to bottom, #020617, #020617);
+    }
+
+    th, td {
+      padding: 6px 7px;
+      border-bottom: 1px solid #111827;
+    }
+
+    th {
+      text-align: left;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 11px;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: #020617;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #020617;
+    }
+
+    tbody tr:hover {
+      background: #0b1120;
+    }
+
+    code.slug {
+      background: #020617;
+      border: 1px solid #1f2937;
+      padding: 2px 4px;
+      border-radius: 2px;
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    /* editor */
+    .editor-wrapper {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      background: #020617;
+      border: 1px solid #1f2937;
+      padding: 8px;
+    }
+
+    .editor-wrapper.active {
+      display: flex;
+    }
+
+    .field-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .field-input {
+      width: 100%;
+      background: #020617;
+      border: 1px solid #1f2937;
+      color: var(--text-main);
+      padding: 5px 6px;
+      font-size: 12px;
+      border-radius: 2px;
+      outline: none;
+    }
+
+    .field-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(34,197,94,.4);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid #1f2937;
+      background: linear-gradient(to bottom, #020617, #020617);
+    }
+
+    .toolbar button {
+      border-radius: 2px;
+      border: 1px solid #1e293b;
+      background: #020617;
+      color: var(--text-muted);
+      font-size: 11px;
+      padding: 3px 6px;
+      cursor: pointer;
+    }
+
+    .toolbar button:hover {
+      background: #0f172a;
+      color: var(--accent);
+    }
+
+    .editor-area {
+      margin-top: 4px;
+      border: 1px solid #1f2937;
+      background: #020617;
+    }
+
+    .editor-textarea {
+      width: 100%;
+      height: 320px;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      padding: 6px;
+      font-size: 12px;
+      font-family: Consolas, "Fira Code", monospace;
+      line-height: 1.4;
+      resize: vertical;
+      outline: none;
+    }
+
+    .status-line {
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff, #22c55e 40%, #0f172a 80%);
+      box-shadow: 0 0 6px rgba(34,197,94,.8);
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .mt-8 {
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="shell-header">
+    <div class="shell-header-left">
+      <div class="led"></div>
+      <span>ADMIN CONSOLE / BLOG MANAGER</span>
+    </div>
+    <div class="shell-header-right">
+      <div class="shell-btn"></div>
+      <div class="shell-btn"></div>
+      <div class="shell-btn"></div>
+    </div>
+  </div>
+
+  <div class="shell-body panel">
+    <div class="panel-header">
+      <div class="panel-header-title">blog posts</div>
+      <div>
+        <button id="logoutBtn" class="btn btn-small">Logout</button>
+        <button id="newBtn" class="btn btn-accent btn-small">NEW POST</button>
+      </div>
+    </div>
+
+    <div class="panel-content">
+      <div class="layout">
+        <!-- LEFT: table -->
+        <div>
+          <table>
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Slug</th>
+              <th>Likes</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+            </thead>
+            <tbody id="blogRows">
+            <% blogdata.forEach(b => { %>
+              <tr>
+                <td><%= b.title %></td>
+                <td><code class="slug"><%= b.slug %></code></td>
+                <td><%= b.like_count %></td>
+                <td style="text-align:right;">
+                  <button class="btn btn-small editBtn" data-slug="<%= b.slug %>">Edit</button>
+                  <button class="btn btn-small btn-danger deleteBtn" data-slug="<%= b.slug %>">Delete</button>
+                </td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- RIGHT: editor -->
+        <div>
+          <div class="editor-wrapper" id="editorWrapper">
+            <div>
+              <div class="field-label">Post title</div>
+              <input id="titleInput" class="field-input" autocomplete="off" />
+            </div>
+
+            <div>
+              <div class="field-label">Writing area (Markdown supported)</div>
+
+              <div class="toolbar" id="toolbar">
+                <button type="button" data-md="**" data-wrap="true"><b>B</b></button>
+                <button type="button" data-md="*" data-wrap="true"><i>I</i></button>
+                <button type="button" data-prefix="# " >H1</button>
+                <button type="button" data-prefix="## " >H2</button>
+                <button type="button" data-prefix="### " >H3</button>
+                <button type="button" data-prefix="- " >• List</button>
+                <button type="button" data-prefix="> " >&gt; Quote</button>
+                <button type="button" data-prefix="```js\n" data-suffix="\n```">Code</button>
+                <button type="button" data-template="[text](url)">Link</button>
+              </div>
+
+              <div class="editor-area">
+                <textarea id="contentInput" class="editor-textarea"></textarea>
+              </div>
+
+              <div class="status-line">
+                <div><span class="status-dot"></span><span id="editorModeLabel">Idle</span></div>
+                <div id="charCount">0 chars</div>
+              </div>
+            </div>
+
+            <div class="mt-8" style="display:flex; justify-content:flex-end; gap:6px;">
+              <button type="button" id="cancelEdit" class="btn btn-small">Close</button>
+              <button type="button" id="savePost" class="btn btn-accent btn-small">Save Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // safe embed of blogs
+  // eslint-disable-next-line
+  const BLOGS = JSON.parse(<%- typeof blogdata !== 'undefined' ? JSON.stringify(JSON.stringify(blogdata)) : '"[]"' %>);
+</script>
+
+<script>
+  const editorWrapper = document.getElementById('editorWrapper');
+  const newBtn = document.getElementById('newBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const titleInput = document.getElementById('titleInput');
+  const contentInput = document.getElementById('contentInput');
+  const editorModeLabel = document.getElementById('editorModeLabel');
+  const charCount = document.getElementById('charCount');
+  const blogRows = document.getElementById('blogRows');
+  const savePostBtn = document.getElementById('savePost');
+  const cancelEditBtn = document.getElementById('cancelEdit');
+
+  let mode = 'idle'; // 'create' | 'edit'
+  let editingSlug = null;
+
+  function openEditor(newMode, blog) {
+    mode = newMode;
+    if (mode === 'create') {
+      editorModeLabel.textContent = 'Creating new post';
+      titleInput.value = '';
+      contentInput.value = '';
+      editingSlug = null;
+    } else {
+      editorModeLabel.textContent = 'Editing: ' + blog.slug;
+      titleInput.value = blog.title;
+      contentInput.value = blog.content;
+      editingSlug = blog.slug;
+    }
+    updateCharCount();
+    editorWrapper.classList.add('active');
+  }
+
+  function closeEditor() {
+    mode = 'idle';
+    editorModeLabel.textContent = 'Idle';
+    editorWrapper.classList.remove('active');
+  }
+
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'post-' + Date.now();
+  }
+
+  function updateCharCount() {
+    charCount.textContent = (contentInput.value || '').length + ' chars';
+  }
+
+  newBtn.addEventListener('click', () => openEditor('create', null));
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('adminToken');
+    window.location.href = '/admin/login';
+  });
+  cancelEditBtn.addEventListener('click', closeEditor);
+  contentInput.addEventListener('input', updateCharCount);
+
+  // Check if user is authenticated
+  const token = localStorage.getItem('adminToken');
+  if (!token) {
+    // Redirect to login if no token found
+    window.location.href = '/admin/login';
+  }
+
+  // Helper function to get auth headers
+  function getAuthHeaders() {
+    const token = localStorage.getItem('adminToken');
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+  }
+
+  // table buttons
+  blogRows.addEventListener('click', async (e) => {
+    const editBtn = e.target.closest('.editBtn');
+    const deleteBtn = e.target.closest('.deleteBtn');
+
+    if (editBtn) {
+      const slug = editBtn.dataset.slug;
+      const blog = BLOGS.find(b => b.slug === slug);
+      if (!blog) return alert('Blog not found.');
+      openEditor('edit', blog);
+    }
+
+    if (deleteBtn) {
+      const slug = deleteBtn.dataset.slug;
+      if (!confirm('Delete blog "' + slug + '"?')) return;
+      try {
+        const res = await fetch('/admin/blog/' + encodeURIComponent(slug), {
+          method: 'DELETE',
+          headers: getAuthHeaders(),
+          credentials: 'include'
+        });
+        if (!res.ok) throw new Error('Failed');
+        location.reload();
+      } catch (err) {
+        console.error(err);
+        alert('Failed to delete.');
+      }
+    }
+  });
+
+  // toolbar markdown helpers
+  document.getElementById('toolbar').addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+
+    const textarea = contentInput;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const value = textarea.value;
+    const selected = value.slice(start, end);
+
+    const prefix = btn.getAttribute('data-prefix') || '';
+    const suffix = btn.getAttribute('data-suffix') || '';
+    const wrap = btn.getAttribute('data-wrap') === 'true';
+    const template = btn.getAttribute('data-template');
+    const md = btn.getAttribute('data-md');
+
+    let newText, newCursor;
+
+    if (template) {
+      newText = value.slice(0, start) + template + value.slice(end);
+      newCursor = start + template.indexOf('text');
+    } else if (wrap && md) {
+      newText = value.slice(0, start) + md + selected + md + value.slice(end);
+      newCursor = start + md.length + selected.length + md.length;
+    } else if (prefix || suffix) {
+      newText = value.slice(0, start) + prefix + selected + suffix + value.slice(end);
+      newCursor = start + prefix.length + selected.length + suffix.length;
+    } else {
+      return;
+    }
+
+    textarea.value = newText;
+    textarea.focus();
+    textarea.selectionStart = textarea.selectionEnd = newCursor;
+    updateCharCount();
+  });
+
+  // save (POST or PATCH)
+  savePostBtn.addEventListener('click', async () => {
+    const title = titleInput.value.trim();
+    const content = contentInput.value;
+
+    if (!title || !content) {
+      alert('Title and content are required.');
+      return;
+    }
+
+    try {
+      let url, method, body;
+
+      if (mode === 'create') {
+        const slug = slugify(title);
+        url = '/admin/blog/v1/new';
+        method = 'POST';
+        body = JSON.stringify({ title, slug, content });
+      } else if (mode === 'edit' && editingSlug) {
+        url = '/admin/blog/' + encodeURIComponent(editingSlug);
+        method = 'PATCH';
+        body = JSON.stringify({ title, content });
+      } else {
+        return;
+      }
+
+      const res = await fetch(url, {
+        method,
+        headers: getAuthHeaders(),
+        body ,
+        credentials: 'include'
+      });
+
+      if (!res.ok) {
+        console.error(await res.text());
+        throw new Error('Failed request');
+      }
+
+      closeEditor();
+      location.reload();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save post.');
+    }
+  });
+</script>
+
+</body>
+</html>
