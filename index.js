@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser')
 require('dotenv').config();
 const path = require('path');
 
@@ -17,6 +18,7 @@ const app = express();
 
 //buildin middleware use in applevel
 app.use(helmet());
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true }));
