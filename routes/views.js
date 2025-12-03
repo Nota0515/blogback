@@ -1,6 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const { blogs, thisblog } = require('../controllers/blogcontroller');
+const { auth } = require('../middleware/auth')
 
 Router.get('/', (req, res) => {
   res.render('index');
@@ -54,9 +55,27 @@ Router.get('/blog/:slug', async (req, res) => {
   }
 });
 
+//admin renders routes
+Router.get('/admin/dashboard' , auth , async(req , res)=>{
+  try {
+    const blogdata = await blogs();
+    res.render("dashboard" , { blogdata });
+  } catch (error) {
+    console.error("Error loading the admin Dasboard", error);
+    res.redirect('/admin/login')
+  }
+});
 
+Router.get('/admin/login', (req, res) => {
+  res.render('login');
+});
+
+
+//experience wala route
 Router.get('/exp', (req, res) => {
   res.render('workexp');
 });
+
+
 
 module.exports = Router;
