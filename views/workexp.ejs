@@ -1,11 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Experience - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style id="all-fonts-style-font-geist">
+        .font-geist {
+            font-family: 'Geist', sans-serif !important;
+        }
+
+        body {
+            font-family: Geist, sans-serif !important;
+        }
+    </style>
 </head>
-<body>
-    <h2>This will be the specific page for workexperience</h2>
+
+<body class="bg-[linear-gradient(180deg,rgba(26,26,26,1)_0%,rgba(0,0,0,1)_100%)] text-neutral-200 min-h-screen antialiased selection:bg-neutral-800 selection:text-white">
+
+    <header class="border-b border-neutral-800/80 backdrop-blur">
+        <div class="max-w-4xl mx-auto flex items-center justify-between gap-4 px-6 py-4">
+            <!-- Brand -->
+            <a href="/" class="flex items-center gap-2">
+                <div class="flex py-2 font-geist">
+                    <span class="text-base tracking-tight text-neutral-50">
+                        Akhilesh Kashyap
+                    </span>
+                </div>
+            </a>
+
+            <!-- Simple Nav -->
+            <nav class="flex items-center py-2 gap-6 text-sm">
+                <span class="relative group inline-flex cursor-pointer items-center font-geist text-neutral-100">
+                    <a href="/blog" class="">Blog</a>
+                    <span class="absolute -bottom-1 inset-x-0 h-0.5 rounded-full bg-red-500"></span>
+                </span>
+                <span class="relative group inline-flex cursor-pointer items-center font-geist text-neutral-100">
+                    Bookshelf
+                    <span class="absolute -bottom-1 inset-x-0 h-0.5 rounded-full bg-red-500"></span>
+                    <span
+                        class="absolute hidden group-active:block sm:group-hover:block top-7 w-fit px-1 -left-4 inset-x-0 rounded-[3.5px] whitespace-nowrap bg-gradient-to-t from-slate-700  to-cyan-950">comming
+                        soon</span>
+                </span>
+            </nav>
+        </div>
+    </header> <!-- Header -->
+    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        <div class="flex items-baseline gap-3 mb-6">
+            <h1 class="text-4xl font-medium tracking-tight text-white">Experience</h1>
+            <span class="text-2xl font-light text-neutral-500">(5)</span>
+        </div>
+        <p class="text-lg text-neutral-400 max-w-xl leading-relaxed">
+            A timeline of my professional career, the products I've built, and the teams I've had the privilege to
+            lead and learn from.
+        </p>
+        </header>
+
+        <!-- List Section -->
+        <main>
+            <div class="mb-8">
+                <span class="text-sm font-medium text-neutral-500">Career path ...</span>
+            </div>
+
+            <div class="flex flex-col gap-6">
+
+                <!-- Experience Item 1 -->
+                <div class="relative p-6 rounded-lg border border-white/5 bg-neutral-900/20">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-lg font-medium text-white tracking-tight">Senior Frontend Engineer</h3>
+                            <div class="flex items-center gap-2 text-sm">
+                                <a href="https://vercel.com" target="_blank"
+                                    class="group flex items-center gap-1 font-medium text-neutral-300 hover:text-white transition-colors">
+                                    Vercel
+                                    <i data-lucide="arrow-up-right"
+                                        class="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <span class="text-neutral-600">•</span>
+                                <span class="text-neutral-500">Remote</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-mono text-neutral-500 shrink-0">2023 — Present</span>
+                    </div>
+
+                    <ul
+                        class="list-disc list-outside ml-4 space-y-2 text-[15px] text-neutral-400 marker:text-neutral-600 leading-relaxed">
+                        <li>Leading the core platform team for Next.js analytics, processing millions of data points
+                            daily to provide real-time insights for developers.</li>
+                        <li>Architected and implemented a new edge-based data ingestion pipeline, reducing latency by
+                            40% and improving global reliability.</li>
+                        <li>Mentored junior engineers and established strict code quality standards, contributing to a
+                            20% reduction in production bugs.</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="relative p-6 rounded-lg border border-white/5 bg-neutral-900/20">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-lg font-medium text-white tracking-tight">Product Designer</h3>
+                            <div class="flex items-center gap-2 text-sm">
+                                <a href="https://stripe.com" target="_blank"
+                                    class="group flex items-center gap-1 font-medium text-neutral-300 hover:text-white transition-colors">
+                                    Stripe
+                                    <i data-lucide="arrow-up-right"
+                                        class="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <span class="text-neutral-600">•</span>
+                                <span class="text-neutral-500">San Francisco</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-mono text-neutral-500 shrink-0">2021 — 2023</span>
+                    </div>
+
+                    <ul
+                        class="list-disc list-outside ml-4 space-y-2 text-[15px] text-neutral-400 marker:text-neutral-600 leading-relaxed">
+                        <li>Designed and shipped high-conversion payment interfaces used by millions of customers,
+                            ensuring full accessibility compliance (WCAG 2.1).</li>
+                        <li>Collaborated with engineering to build the initial set of reusable components for the Stripe
+                            Dashboard design system.</li>
+                        <li>Conducted extensive user research and A/B testing to validate interaction models for complex
+                            financial data visualization.</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 3 -->
+                <div class="relative p-6 rounded-lg border border-white/5 bg-neutral-900/20">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-lg font-medium text-white tracking-tight">Software Engineer</h3>
+                            <div class="flex items-center gap-2 text-sm">
+                                <a href="https://linear.app" target="_blank"
+                                    class="group flex items-center gap-1 font-medium text-neutral-300 hover:text-white transition-colors">
+                                    Linear
+                                    <i data-lucide="arrow-up-right"
+                                        class="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <span class="text-neutral-600">•</span>
+                                <span class="text-neutral-500">Remote</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-mono text-neutral-500 shrink-0">2020 — 2021</span>
+                    </div>
+
+                    <ul
+                        class="list-disc list-outside ml-4 space-y-2 text-[15px] text-neutral-400 marker:text-neutral-600 leading-relaxed">
+                        <li>Engineered the real-time sync engine using WebSockets and conflict-free replicated data
+                            types (CRDTs) for instant client updates.</li>
+                        <li>Optimized the React Native mobile application, achieving stable 60fps performance on older
+                            devices through aggressive profiling.</li>
+                        <li>Implemented complex keyboard navigation features, enhancing power-user productivity across
+                            the desktop application.</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 4 -->
+                <div class="relative p-6 rounded-lg border border-white/5 bg-neutral-900/20">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-lg font-medium text-white tracking-tight">Frontend Developer</h3>
+                            <div class="flex items-center gap-2 text-sm">
+                                <a href="https://raycast.com" target="_blank"
+                                    class="group flex items-center gap-1 font-medium text-neutral-300 hover:text-white transition-colors">
+                                    Raycast
+                                    <i data-lucide="arrow-up-right"
+                                        class="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <span class="text-neutral-600">•</span>
+                                <span class="text-neutral-500">London</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-mono text-neutral-500 shrink-0">2019 — 2020</span>
+                    </div>
+
+                    <ul
+                        class="list-disc list-outside ml-4 space-y-2 text-[15px] text-neutral-400 marker:text-neutral-600 leading-relaxed">
+                        <li>Built the core Extensions API from scratch, enabling third-party developers to extend the
+                            launcher's functionality with custom scripts.</li>
+                        <li>Curated and maintained the initial ecosystem of open-source plugins, reviewing PRs and
+                            guiding community contributors.</li>
+                        <li>Authored comprehensive documentation and example projects to drive early developer adoption
+                            and community growth.</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 5 -->
+                <div class="relative p-6 rounded-lg border border-white/5 bg-neutral-900/20">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-lg font-medium text-white tracking-tight">Freelance Developer</h3>
+                            <div class="flex items-center gap-2 text-sm">
+                                <a href="#"
+                                    class="group flex items-center gap-1 font-medium text-neutral-300 hover:text-white transition-colors">
+                                    Self-employed
+                                    <i data-lucide="arrow-up-right"
+                                        class="w-3.5 h-3.5 text-neutral-500 group-hover:text-white transition-colors"></i>
+                                </a>
+                                <span class="text-neutral-600">•</span>
+                                <span class="text-neutral-500">Global</span>
+                            </div>
+                        </div>
+                        <span class="text-sm font-mono text-neutral-500 shrink-0">2017 — 2019</span>
+                    </div>
+
+                    <ul
+                        class="list-disc list-outside ml-4 space-y-2 text-[15px] text-neutral-400 marker:text-neutral-600 leading-relaxed">
+                        <li>Delivered full-stack web solutions for early-stage startups using the MERN stack and modern
+                            CSS frameworks.</li>
+                        <li>Managed end-to-end product development life cycles, from initial requirement gathering to
+                            deployment and maintenance.</li>
+                        <li>Consulted on technical strategy, helping non-technical founders select scalable technology
+                            stacks for their MVPs.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+        </div>
+
+        <script>
+            lucide.createIcons();
+        </script>
 </body>
+
 </html>
