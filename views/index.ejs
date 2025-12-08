@@ -205,7 +205,7 @@
             <button
               class="cursor-pointer inline-flex flex-col leading-none outline-none overflow-hidden no-underline align-baseline whitespace-nowrap select-none transition-all duration-150 hover:opacity-85 focus:outline-none focus:ring-4 active:scale-95 focus:ring-black/50 max-sm:h-12 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] text-sm text-white text-center bg-gradient-to-b from-neutral-700 to-neutral-900 border-0 rounded-xl pt-2 pr-5 pb-2 pl-5 items-center justify-center font-geist"
               role="button" onclick="resumeFtn()">Resume</button>
-            <button
+            <button id="menu-open-btn"
               class="md:hidden inline-flex items-center justify-center rounded-lg border border-black/10 bg-white text-black/70 hover:bg-black/5 h-9 w-9 transition"
               aria-label="Open menu">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -220,6 +220,26 @@
         </div>
       </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-50">
+        <div class="flex justify-between items-center p-6 border-b border-gray-200">
+            <a href="/" class="text-sm sm:text-base font-medium tracking-tight text-black font-geist">Akhilesh</a>
+            <button id="menu-close-btn" aria-label="Close menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center justify-center h-full -mt-16 gap-8">
+            <a href="#work" class="text-lg text-black/60 hover:text-black transition font-geist mobile-nav-link">Work</a>
+            <a href="#about" class="text-lg text-black/60 hover:text-black transition font-geist mobile-nav-link">About</a>
+            <a href="#contact" class="text-lg text-black/60 hover:text-black transition font-geist mobile-nav-link">Contact</a>
+            <a href="/exp" class="text-lg text-black/60 hover:text-black transition font-geist mobile-nav-link">Experience</a>
+            <a href="/blog" class="text-lg cursor-pointer text-black/60 hover:text-black transition font-geist mobile-nav-link">Blog</a>
+        </nav>
+    </div>
 
     <!-- Hero -->
     <section class="max-w-7xl sm:px-8 mr-auto ml-auto pr-6 pl-6 ">
@@ -773,7 +793,7 @@
               <div
                 class="sm:p-6 md:p-8 bg-gradient-to-b from-neutral-700 to-neutral-900 border-black/10 border rounded-2xl mt-6 pt-5 px-4 pb-5 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)]">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  <div class="space-y-4">
+                  <div class="space-y-4 z-30">
                     <div
                       class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/20 px-2.5 py-1 text-xs font-geist">
                       <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -1054,4 +1074,26 @@
 
 </body>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const openBtn = document.getElementById('menu-open-btn');
+    const closeBtn = document.getElementById('menu-close-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+    }
+
+    function closeMenu() {
+      mobileMenu.classList.add('hidden');
+    }
+
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    navLinks.forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  });
+</script>
 </html>
