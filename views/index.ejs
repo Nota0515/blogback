@@ -863,7 +863,7 @@
                     <div class="sm:col-span-1">
                       <label for="project-type" class="block text-xs font-medium text-white/80 mb-1 font-geist">Project
                         type</label>
-                      <div class="relative">
+                      <div class="relative" id="project-type-dropdown">
                         <button id="project-type-button" type="button"
                           class="w-full text-left flex items-center justify-between gap-2 appearance-none outline-none focus:ring-2 focus:ring-white/20 transition text-sm text-white bg-black/20 border border-white/20 rounded-xl py-2.5 pr-3 pl-3 font-geist"
                           aria-haspopup="listbox" aria-expanded="false">
@@ -876,13 +876,13 @@
 
                         <ul id="project-type-list" role="listbox" tabindex="-1"
                           class="hidden absolute right-0 left-0 mt-2 bg-gradient-to-b from-neutral-700 to-neutral-800 text-white rounded-xl shadow-lg overflow-hidden z-50 divide-y divide-black/25">
-                          <li role="option" data-value="web-dev"
+                          <li role="option" data-value="web-development"
                             class="px-4 py-2 hover:bg-gradient-to-b from-black/5 to-black/20  cursor-pointer">Website
                             Development</li>
                           <li role="option" data-value="web-redesign"
                             class="px-4 py-2 hover:bg-gradient-to-b from-black/5 to-black/20 cursor-pointer">Website
                             Redesign</li>
-                          <li role="option" data-value="web-app-dev"
+                          <li role="option" data-value="web-app-development"
                             class="px-4 py-2 hover:bg-gradient-to-b from-black/5 to-black/20 cursor-pointer">
                             Web-Application Development</li>
                           <li role="option" data-value="software-development"
@@ -890,7 +890,7 @@
                             Development</li>
                         </ul>
 
-                        <input type="hidden" name="projectType" id="project-type-input" value="product">
+                        <input type="hidden" name="project_type" id="project-type-input" value="software-development">
                       </div>
                     </div>
                     <div class="sm:col-span-2">
@@ -901,7 +901,7 @@
                         class="w-full placeholder-white/40 outline-none focus:ring-2 focus:ring-white/20 focus:border-white/40 transition text-sm text-white bg-black/20 border-white/20 border rounded-xl pt-2.5 pr-3 pb-2.5 pl-3 font-geist backdrop-blur-md resize-none"></textarea>
                     </div>
                     <div class="sm:col-span-2 flex items-end justify-center lg:justify-end gap-3">
-                      <div id="form-message" class="text-white font-geist"></div>
+                      <div id="form-message" class="font-geist mb-2 sm:mb-1 text-sm sm:text-base "></div>
                       <div class="flex items-center gap-2">
                         <button type="submit"
                           class="inline-flex gap-2 ring-1 ring-white/20 hover:bg-white hover:text-black transition text-sm font-medium text-white bg-black/20 backdrop-blur-md rounded-xl pt-2.5 pr-4 pb-2.5 pl-4 shadow-sm items-center font-geist">
@@ -968,9 +968,9 @@
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     data-lucide="github" class="lucide lucide-github w-[16px] h-[16px]">
                     <path
-                      d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+                      d="M15 22v-4a4.8 4.8 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z">
                     </path>
-                    <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                    <path d="m9 12 2 2 4-4"></path>
                   </svg>
                 </a>
                 <a href="https://x.com/Akhilesh_nota" aria-label="X"
@@ -999,9 +999,7 @@
 
           <div
             class="mt-10 pt-6 border-t border-black/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <p class="text-black/60 text-sm font-geist">© <span class="font-geist">
-                <%= new Date().getFullYear() %>
-              </span> tyforge. All
+            <p class="text-black/60 text-sm font-geist"> 2023 tyforge. All
               rights
               reserved.</p>
             <div class="flex items-center gap-4 text-black/60 text-sm font-geist">
@@ -1028,49 +1026,32 @@
   </div>
 
   <script>
-    (function () {
-      const btn = document.getElementById('project-type-button');
-      const list = document.getElementById('project-type-list');
-      const selected = document.getElementById('project-type-selected');
-      const hidden = document.getElementById('project-type-input');
+    document.addEventListener('DOMContentLoaded', function () {
+        const projectTypeButton = document.getElementById('project-type-button');
+        const projectTypeList = document.getElementById('project-type-list');
+        const projectTypeSelected = document.getElementById('project-type-selected');
+        const projectTypeInput = document.getElementById('project-type-input');
 
-      if (!btn || !list || !selected || !hidden) return;
+        if (projectTypeButton) {
+            projectTypeButton.addEventListener('click', () => {
+                projectTypeList.classList.toggle('hidden');
+            });
 
-      const closeList = () => {
-        list.classList.add('hidden');
-        btn.setAttribute('aria-expanded', 'false');
-      };
+            projectTypeList.querySelectorAll('li').forEach(item => {
+                item.addEventListener('click', () => {
+                    projectTypeSelected.textContent = item.textContent;
+                    projectTypeInput.value = item.dataset.value;
+                    projectTypeList.classList.add('hidden');
+                });
+            });
 
-      const openList = () => {
-        list.classList.remove('hidden');
-        btn.setAttribute('aria-expanded', 'true');
-      };
-
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (list.classList.contains('hidden')) openList(); else closeList();
-      });
-
-      list.addEventListener('click', (e) => {
-        const li = e.target.closest('li[role="option"]');
-        if (!li) return;
-        const val = li.getAttribute('data-value');
-        const text = li.textContent.trim();
-        hidden.value = val;
-        selected.textContent = text;
-        closeList();
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!list.classList.contains('hidden')) {
-          if (!btn.contains(e.target) && !list.contains(e.target)) closeList();
+            document.addEventListener('click', function (event) {
+                if (!projectTypeButton.contains(event.target) && !projectTypeList.contains(event.target)) {
+                    projectTypeList.classList.add('hidden');
+                }
+            });
         }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeList();
-      });
-    })();
+    });
   </script>
 
 </body>
@@ -1124,7 +1105,7 @@
       const result = await response.json();
 
       if (result.success) {
-        messageDiv.textContent = 'Thank you for your message! I will get back to you soon.';
+        messageDiv.textContent = 'Thank you! message received';
         messageDiv.style.color = 'lightgreen';
         form.reset();
       } else {
