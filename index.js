@@ -9,6 +9,7 @@ const path = require('path');
 const adminroutes = require('./routes/admin');
 const authroutes = require('./routes/auth');
 const blogroutes = require('./routes/blog');
+const contactroutes = require('./routes/contact');
 
 //views routes (SSR) 
 const viewRoutes = require('./routes/views');
@@ -40,6 +41,7 @@ app.use('/' , viewRoutes);
 app.use("/admin" , adminroutes);
 app.use('/api/v1/auth' , authroutes);
 app.use('/api/v1/blog', blogroutes);
+app.use('/api/v1/contact', contactroutes);
 
 
 app.get('/helloworld' , (req , res)=>{
