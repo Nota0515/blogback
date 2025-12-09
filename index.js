@@ -18,7 +18,7 @@ const viewRoutes = require('./routes/views');
 const app = express();
 
 //buildin middleware use in applevel
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
@@ -57,6 +57,6 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 5000 ;
 
-app.listen(PORT , ()=>{
+app.listen(PORT ,'0.0.0.0', ()=>{
     console.log(`app is running on port ${PORT}`)
 })
